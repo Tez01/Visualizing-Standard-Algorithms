@@ -1,0 +1,33 @@
+.search{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background-color: black;
+}
+
+@keyframes moveToLeft{
+        0%{
+                left:50%;
+                font-size: 2em;
+        }
+        
+        
+        100%{
+                left: 0%;    
+                font-size: 1em;    
+        }
+}
+
+#search-button{
+        position: relative;
+        animation-name: moveToLeft;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        font-family: "Helvetica";
+        color: white;
+        font-size: 1em;
+        background-color: rgb(17, 167, 17);
+        border-radius: 4px ;
+        border: 1em;
+        border-color: white;
+}
