@@ -8,12 +8,12 @@
                 <!-- Personal CSS  -->
                 <link href = "{{url_for('static', path='/css/styles.css')}}" rel = "stylesheet">
                 <script src = "{{ url_for('static', path = '/js/movement_handler.js') }}"></script>
+                {% block titleBlock %}
+                {% endblock %}
         </head>
         <body>
-                <div class="search">
-                        <button type="button" id= "search-button">Search for an algorithm here</button>
-                </div>
-
+                {% block body %}
+                {% endblock %}
                 
         </body>
 </html>

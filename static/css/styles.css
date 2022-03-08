@@ -1,16 +1,18 @@
-.search{
+.searchAlgorithm{
+        position: relative;
         height: 100vh;
+        width: 100vw;
         display: flex;
         align-items: center;
+        justify-content: center;
         background-color: black;
 }
 
 @keyframes moveToLeft{
         0%{
-                left:50%;
+                left: 50%;
                 font-size: 2em;
         }
-        
         
         100%{
                 left: 0%;    
@@ -19,7 +21,7 @@
 }
 
 #search-button{
-        position: relative;
+        position: absolute;
         animation-name: moveToLeft;
         animation-duration: 2s;
         animation-fill-mode: forwards;
