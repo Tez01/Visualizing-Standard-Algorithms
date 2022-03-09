@@ -17,22 +17,28 @@ document.addEventListener('DOMContentLoaded', function(){
                         searchButton1.style.animationPlayState = 'paused';
                 }
 
-                makeButtons(this, 2);
+                const buttonText = ["Search", "Sort", "Hash"]
+                makeButtons(buttonText, document.querySelector(".search-algorithm") );
 
+                // On clicking any of those move from center and cascade after searchButton 1.
+                
 
         };
 });
 
-function makeButtons(sourceElement, numOfButtons){
-        // Get width and height of source element
-        let width = sourceElement.offsetWidth;
-        let height = sourceElement.offsetHeight;
+function makeButtons( buttonText, containerToAddButtons){
+        // Create a container to save all buttons
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add("button-container");
 
-        //Make numOfArrows number of arrows by alternating between up and down
-        for( let i = 0; i < numOfButtons; i++ ){
-
-                makeArrow()
+        // Create buttons in the container based on number of text items in buttonText
+        for(let button = 0; button < buttonText.length; button++){
+                buttonContainer.innerHTML += `<button type="button" class= "search-button">${buttonText[button]}</button>`
         }
+
+        // Add the element to the container passed in argument
+        containerToAddButtons.append(buttonContainer);
+
 }
 
 
