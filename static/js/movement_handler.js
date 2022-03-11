@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
         // Find search button
         const searchButton1 = document.querySelector('#search-button');
-        console.log(searchButton1)
+        
         // Pause animation
         searchButton1.style.animationPlayState = 'paused';
 
@@ -17,11 +17,17 @@ document.addEventListener('DOMContentLoaded', function(){
                         searchButton1.style.animationPlayState = 'paused';
                 }
 
+                console.log( parseInt(window.getComputedStyle(searchButton1).animationDuration.split("s")[0]))
                 const buttonText = ["Search", "Sort", "Hash"]
-                makeButtons(buttonText, document.querySelector(".search-algorithm") );
-
-                // On clicking any of those move from center and cascade after searchButton 1.
+                setTimeout(()=>{
+                        makeButtons(buttonText, document.querySelector(".search-algorithm") );    
+                }, (parseInt(window.getComputedStyle(searchButton1).animationDuration.split("s")[0]) / 2) * 1000)
+                // Trigger creation of buttons when animation is at half
+                searchButton1.addEventListener('animationend',()=>{
+                        // make new buttons
                 
+                        
+                })
 
         };
 });
@@ -33,7 +39,7 @@ function makeButtons( buttonText, containerToAddButtons){
 
         // Create buttons in the container based on number of text items in buttonText
         for(let button = 0; button < buttonText.length; button++){
-                buttonContainer.innerHTML += `<button type="button" class= "search-button">${buttonText[button]}</button>`
+                buttonContainer.innerHTML += `<button type="button" class= "algorithm-type-button button">${buttonText[button]}</button>`
         }
 
         // Add the element to the container passed in argument

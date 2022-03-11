@@ -1,44 +1,83 @@
 .search-algorithm{
-        position: relative;
         height: 100vh;
         width: 100vw;
         display: flex;
+        justify-content: flex-start;
         align-items: center;
-        justify-content: center;
         background-color: black;
 }
 
-@keyframes moveToLeft{
-        0%{
-                left: 50%;
-                font-size: 2em;
-        }
-        
-        100%{
-                left: 0%;    
-                font-size: 1em;    
-        }
-}
-
-#search-button{
-        position: absolute;
-        animation-name: moveToLeft;
-        animation-duration: 2s;
-        animation-fill-mode: forwards;
-        font-family: "Helvetica";
+.button{
+        font-size: 1.5em;
         color: white;
-        font-size: 1em;
-        background-color: rgb(17, 167, 17);
+        font-family: "Helvetica";
         border-radius: 4px ;
         border: 1em;
         border-color: white;
 }
 
+@keyframes moveToLeft{
+        0%{
+                margin-left: 50%;
+                margin-right: 50%;
+                margin-top: 50%;
+                margin-bottom: 50%;
+                font-size: 3em;
+        }
+        
+        100%{
+                margin-right: 10%;
+                margin-left: 0%;
+                
+                
+        }
+}
+
+
+#search-button{
+        animation-name: moveToLeft;
+        animation-duration: 2000ms;
+        animation-fill-mode: forwards;
+        background-color: rgb(17, 167, 17);
+        margin-right: 10%;
+        transition-property: background-color ;
+        transition-duration: 500ms;
+        
+}
+
+#search-button:hover{
+        background-color: #FF6347;
+}
+
+
+@keyframes containerAppear{
+        0%{
+                opacity: 0;
+        }
+
+        100%{
+                opacity: 1;
+        }
+}
 .button-container{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        background-color: white;
+        justify-content: space-around;
         height: 100vh;
+        margin-right: 10%;
+        animation: containerAppear 1s;
+
+}
+
+.algorithm-type-button{
+        background-color: #FF6347;
+        transition-property: background-color color;
+        transition-duration: 500ms;
+        transition-timing-function:cubic-bezier(0.075, 0.82, 0.165, 1);
+
+}
+
+.algorithm-type-button:hover {
+        background-color: #52B2BF;
         
 }
