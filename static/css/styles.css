@@ -1,12 +1,4 @@
-.search-algorithm{
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        background-color: black;
-}
-
+/*************************************************Generic **************************************************************/
 .button{
         font-size: 1.5em;
         color: white;
@@ -16,6 +8,19 @@
         border-color: white;
 }
 
+.button-container{
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100vh;
+        margin-right: 10%;
+        animation: containerAppear 1s;
+
+}
+
+/**************************************************Keyframes ***********************************************************/
+
 @keyframes moveToLeft{
         0%{
                 margin-left: 50%;
@@ -24,29 +29,13 @@
                 margin-bottom: 50%;
                 font-size: 3em;
         }
-        
+       
         100%{
                 margin-right: 10%;
                 margin-left: 0%;
                 
                 
         }
-}
-
-
-#search-button{
-        animation-name: moveToLeft;
-        animation-duration: 2000ms;
-        animation-fill-mode: forwards;
-        background-color: rgb(17, 167, 17);
-        margin-right: 10%;
-        transition-property: background-color ;
-        transition-duration: 500ms;
-        
-}
-
-#search-button:hover{
-        background-color: #FF6347;
 }
 
 
@@ -59,17 +48,53 @@
                 opacity: 1;
         }
 }
-.button-container{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        height: 100vh;
-        margin-right: 10%;
-        animation: containerAppear 1s;
 
+
+@keyframes moveToCenter{
+        100%{
+                margin-top: 50%;
+        }
 }
 
+/*************************************************Search Button*******************************************************/
+
+
+.search-algorithm{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: black;
+}
+
+#search-button{
+        animation-name: moveToLeft;
+        animation-duration: 2000ms;
+        animation-fill-mode: forwards;
+        background-color: rgb(17, 167, 17);
+        margin-right: 10%;
+        transition-property: background-color ;
+        transition-duration: 1000ms;
+        
+}
+
+#search-button:hover{
+        background-color: #FF6347;
+}
+
+
+
+
+
+
+
+
+
+/* ****************************************Algorithm type button************************************************************* */
+
 .algorithm-type-button{
+        position: relative;
         background-color: #FF6347;
         transition-property: background-color color;
         transition-duration: 500ms;
@@ -80,4 +105,10 @@
 .algorithm-type-button:hover {
         background-color: #52B2BF;
         
+}
+
+#algorithm-type-1{
+        position: absolute;
+        animation: moveToCenter 1s;
+        animation-fill-mode: forwards;
 }
