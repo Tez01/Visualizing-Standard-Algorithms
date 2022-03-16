@@ -38,12 +38,16 @@ document.addEventListener('DOMContentLoaded', function(){
                                                 this.classList.add("animation")
                                                 parent.appendChild(this);
                                                 startAnimation(this);
+                                                // Disable the button so that its only clicked once
+                                                this.onclick = null;
 
                                          }        
                                         
                                 }
                         }
                 )
+                // Disable the button so that its only clicked once
+                searchButton1.onclick = null;
         };
 
         
@@ -76,7 +80,7 @@ function makeButtons( buttonText, containerToAddButtons){
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add("button-container");
         buttonContainer.classList.add("animation");
-        
+
         // Create buttons in the container based on number of text items in buttonText
         for(let button = 0; button < buttonText.length; button++){
                 buttonContainer.innerHTML += `<button type="button" id= "algorithm-type-${button}" class= "button algorithm-type-button">${buttonText[button]}</button>`
