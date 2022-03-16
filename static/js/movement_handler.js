@@ -1,19 +1,4 @@
-
-
-function makeButtons( buttonText, containerToAddButtons){
-        // Create a container to save all buttons
-        const buttonContainer = document.createElement('div');
-        buttonContainer.classList.add("button-container");
-
-        // Create buttons in the container based on number of text items in buttonText
-        for(let button = 0; button < buttonText.length; button++){
-                buttonContainer.innerHTML += `<button type="button" id= "algorithm-type-${button}" class= "button algorithm-type-button">${buttonText[button]}</button>`
-        }
-
-        // Add the element to the container passed in argument
-        containerToAddButtons.append(buttonContainer);
-
-}document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function(){
         // Find search button
         const searchButton1 = document.querySelector('#search-button');
         
@@ -37,14 +22,25 @@ function makeButtons( buttonText, containerToAddButtons){
                 }
                 f().then(()=>{
                                         // Find search button
-                                const algorithmTypeButton= document.querySelector('#algorithm-type-0');
-                                console.log(algorithmTypeButton)
-                                if(algorithmTypeButton != null){
-                                        algorithmTypeButton.style.animationPlayState = 'paused';
-                                        algorithmTypeButton.onclick = function(){
-                                                
-                                                startAnimation(algorithmTypeButton);
-                                        }
+                                const algorithmTypeButtons= document.querySelectorAll('.algorithm-type-button');
+                                console.log(algorithmTypeButtons)
+                                for(var i = 0; i < algorithmTypeButtons.length;i++){
+                                        // Add on click event listener for all buttons that are algorithm type
+                                        algorithmTypeButtons[i].onclick = function(){  
+                                                console.log(this)     
+                                                let parent = this.parentElement;
+                                                // Remove all child
+                                                while(parent.lastChild){
+                                                        parent.removeChild(parent.lastChild)
+        
+                                                }
+                                                // And add the selected child so that its the only one remaining
+                                                this.classList.add("animation")
+                                                parent.appendChild(this);
+                                                startAnimation(this);
+
+                                         }        
+                                        
                                 }
                         }
                 )
@@ -66,16 +62,28 @@ function makeButtons( buttonText, containerToAddButtons){
  */
 function startAnimation(element){
         
-        // Start animation if already paused
-        if(element.style.animationPlayState == 'paused'){
-                element.style.animationPlayState = 'running';
-        }
-        // Otherwise pause the animation
-        else{
-                element.style.animationPlayState = 'paused';
-        }
+        
+        element.style.animationPlayState = 'running';
+
+        
 }
 
 
-// Todo:
-// Make the button in center
+
+
+function makeButtons( buttonText, containerToAddButtons){
+        // Create a container to save all buttons
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add("button-container");
+        buttonContainer.classList.add("animation");
+        
+        // Create buttons in the container based on number of text items in buttonText
+        for(let button = 0; button < buttonText.length; button++){
+                buttonContainer.innerHTML += `<button type="button" id= "algorithm-type-${button}" class= "button algorithm-type-button">${buttonText[button]}</button>`
+        }
+        startAnimation(buttonContainer);
+        // Add the element to the container passed in argument
+        containerToAddButtons.append(buttonContainer);
+
+}
+

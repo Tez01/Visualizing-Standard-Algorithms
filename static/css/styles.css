@@ -15,7 +15,7 @@
         justify-content: space-around;
         height: 100vh;
         margin-right: 10%;
-        animation: containerAppear 1s;
+        animation: elementAppear 1s;
 
 }
 
@@ -39,7 +39,7 @@
 }
 
 
-@keyframes containerAppear{
+@keyframes elementAppear{
         0%{
                 opacity: 0;
         }
@@ -51,8 +51,9 @@
 
 
 @keyframes moveToCenter{
+        
         100%{
-                margin-top: 50%;
+                margin-top: 100px;
         }
 }
 
@@ -94,11 +95,14 @@
 /* ****************************************Algorithm type button************************************************************* */
 
 .algorithm-type-button{
-        position: relative;
         background-color: #FF6347;
         transition-property: background-color color;
         transition-duration: 500ms;
         transition-timing-function:cubic-bezier(0.075, 0.82, 0.165, 1);
+        animation: moveToCenter 1s;
+        animation-fill-mode: forwards;
+        animation-play-state: paused;
+        
 
 }
 
@@ -107,8 +111,7 @@
         
 }
 
-#algorithm-type-1{
-        position: absolute;
-        animation: moveToCenter 1s;
-        animation-fill-mode: forwards;
+.animation{
+        animation: elementAppear 1s forwards;
+        animation-play-state: paused;
 }
