@@ -10,43 +10,48 @@ document.addEventListener('DOMContentLoaded', function(){
                 startAnimation(searchButton1);
 
                 const buttonText = ["Search", "Sort", "Hash"]
+                console.log(typeof buttonText)
                 async function f(){
                         let promise = new  Promise((resolve, reject)=>{
-                                setTimeout(()=>{
-                                        // make new buttons
-                                        resolve(makeButtons(buttonText, document.querySelector(".search-algorithm") ));    
-                                }, (parseInt(window.getComputedStyle(searchButton1).animationDuration.split("s")[0]) / 2) * 1000) // Trigger creation of buttons when animation is at half
 
+                                // make new buttons after half time has spent for animation of search button 1
+                                setTimeout(()=>{
+                                        resolve(makeButtons(buttonText, document.querySelector(".search-algorithm") ));    
+                                }, 
+                                (parseInt(window.getComputedStyle(searchButton1).animationDuration.split("s")[0]) / 2) * 1000)
+                                // This parseInt here is just calculating the half of time taken for searchButton1 to complete its animation
                          })
                          return promise;
                 }
                 f().then(()=>{
-                                        // Find search button
-                                const algorithmTypeButtons= document.querySelectorAll('.algorithm-type-button');
-                                console.log(algorithmTypeButtons)
-                                for(var i = 0; i < algorithmTypeButtons.length;i++){
-                                        // Add on click event listener for all buttons that are algorithm type
-                                        algorithmTypeButtons[i].onclick = function(){  
-                                                console.log(this)     
-                                                let parent = this.parentElement;
-                                                // Remove all child
-                                                while(parent.lastChild){
-                                                        parent.removeChild(parent.lastChild)
-        
-                                                }
-                                                // And add the selected child so that its the only one remaining
-                                                this.classList.add("animation")
-                                                parent.appendChild(this);
-                                                startAnimation(this);
-                                                // Disable the button so that its only clicked once
-                                                disableClick(this);
+                        // Find search button
+                        const algorithmTypeButtons= document.querySelectorAll('.algorithm-type-button');
+                        
+                        for(var i = 0; i < algorithmTypeButtons.length;i++){
+                                // Add on click event listener for all buttons that are algorithm type
+                                algorithmTypeButtons[i].onclick = function(){  
+                                         
+                                        let parent = this.parentElement;
 
-                                         }        
-                                        
+                                        // Remove all child of this parent
+                                        while(parent.lastChild){
+                                                parent.removeChild(parent.lastChild)
+                                        }
+
+                                        // And add the selected child so that its the only one remaining
+                                        this.classList.add("animation")
+                                        parent.appendChild(this);
+                                        startAnimation(this);
+
+                                        // Disable the button so that its only clickable once
+                                        disableClick(this);
+
+                                        }        
+                                
                                 }
                         }
                 )
-                // Disable the button so that its only clicked once
+                // Disable the button so that its only clickable once
                 disableClick(searchButton1);
         };
 
@@ -64,18 +69,26 @@ document.addEventListener('DOMContentLoaded', function(){
  * @param {object} element Element for which animation need to be turned on
  * @return  Nothing
  */
-function startAnimation(element){
-        
-        
+function startAnimation(element){     
+
         element.style.animationPlayState = 'running';
 
-        
 }
 
 
 
-
+/**
+ * Makes n number of buttons inside the container which is passed as argument. n is 
+ * equal to the number of button-display-texts in the buttonText argument.
+ * 
+ * @param {object} buttonText Essentially an array that contains all the button-display-texts.
+ * @param {object} containerToAddButtons Container to which new buttons are appended
+ * 
+ * @return  Nothing
+ */
 function makeButtons( buttonText, containerToAddButtons){
+        console.log(typeof buttonText)
+
         // Create a container to save all buttons
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add("button-container");
