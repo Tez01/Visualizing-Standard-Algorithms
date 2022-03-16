@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function(){
                                                 parent.appendChild(this);
                                                 startAnimation(this);
                                                 // Disable the button so that its only clicked once
-                                                this.onclick = null;
+                                                disableClick(this);
 
                                          }        
                                         
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         }
                 )
                 // Disable the button so that its only clicked once
-                searchButton1.onclick = null;
+                disableClick(searchButton1);
         };
 
         
@@ -91,3 +91,14 @@ function makeButtons( buttonText, containerToAddButtons){
 
 }
 
+
+
+/**
+ * Disable the element's click property 
+ * 
+ * @param {object} element Element for which click needs to be disabled
+ * @return  Nothing
+ */
+function disableClick(element){
+        element.onclick = null;
+}
