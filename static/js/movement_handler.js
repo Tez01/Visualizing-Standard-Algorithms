@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
                                 // make new buttons after half time has spent for animation of search button 1
                                 setTimeout(()=>{
-                                        resolve(makeButtons(buttonText, document.querySelector(".search-algorithm") ));    
+                                        resolve(makeButtons(buttonText, document.querySelector(".search-algorithm"), "button algorithm-type-button"));    
                                 }, 
                                 (parseInt(window.getComputedStyle(searchButton1).animationDuration.split("s")[0]) / 2) * 1000)
                                 // This parseInt here is just calculating the half of time taken for searchButton1 to complete its animation
@@ -26,11 +26,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 f().then(()=>{
                         // Find search button
                         const algorithmTypeButtons= document.querySelectorAll('.algorithm-type-button');
-                        
                         for(var i = 0; i < algorithmTypeButtons.length;i++){
                                 // Add on click event listener for all buttons that are algorithm type
                                 algorithmTypeButtons[i].onclick = function(){  
-                                         
+                                         // Disable the button so that its only clickable once
+                                        
+                                        disableClick(this);
                                         let parent = this.parentElement;
 
                                         // Remove all child of this parent
@@ -43,9 +44,11 @@ document.addEventListener('DOMContentLoaded', function(){
                                         parent.appendChild(this);
                                         startAnimation(this);
 
-                                        // Disable the button so that its only clickable once
-                                        disableClick(this);
-
+                                        // create more buttons for algorithms 
+                                        if(this.innerHTML === "Search"){
+                                                let searchAlgorithmList = ["Binary Search", "Depth First Search", "Breadth First Search"]
+                                                makeButtons(searchAlgorithmList, document.querySelector(".search-algorithm"), "button search-type-button")
+                                        }
                                         }        
                                 
                                 }
@@ -83,20 +86,19 @@ function startAnimation(element){
  * 
  * @param {object} buttonText Essentially an array that contains all the button-display-texts.
  * @param {object} containerToAddButtons Container to which new buttons are appended
- * 
+ * @param {string} classList A string of all classes to add to buttons
  * @return  Nothing
  */
-function makeButtons( buttonText, containerToAddButtons){
-        console.log(typeof buttonText)
+function makeButtons( buttonText, containerToAddButtons, classList = null){
 
         // Create a container to save all buttons
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add("button-container");
         buttonContainer.classList.add("animation");
-
         // Create buttons in the container based on number of text items in buttonText
         for(let button = 0; button < buttonText.length; button++){
-                buttonContainer.innerHTML += `<button type="button" id= "algorithm-type-${button}" class= "button algorithm-type-button">${buttonText[button]}</button>`
+                buttonContainer.innerHTML += `<button type="button" class="${classList == null ? "" : `${classList}`}" >${buttonText[button]}</button>`
+                                                                             // if classList is null, set class equal to empty string, otherwise equal to classList
         }
         startAnimation(buttonContainer);
         // Add the element to the container passed in argument
