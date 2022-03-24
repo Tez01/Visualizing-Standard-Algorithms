@@ -12,8 +12,14 @@
                 {% endblock %}
         </head>
         <body>
-                {% block body %}
-                {% endblock %}
-                
+                <div id = "search-page">
+                        {% block searchBody %}
+                        {% endblock %}
+                </div>
+
+                <div id = "visualize-page">
+                        {% block visualizeBody %}
+                        {% endblock %}
+                </div>
         </body>
 </html>
