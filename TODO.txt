@@ -1,0 +1,2 @@
+1. Animate hiding and display of pages
+2. Find a way to get extensions done in html proeperly.
