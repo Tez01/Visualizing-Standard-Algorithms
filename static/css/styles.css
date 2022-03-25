@@ -1,4 +1,9 @@
 /*************************************************Generic **************************************************************/
+.root-container{
+        
+        background-color: black;
+}
+
 .button{
         font-size: 1.5em;
         color: white;
@@ -69,14 +74,8 @@
 /*************************************************Search Button*******************************************************/
 
 
-.root-container{
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        background-color: black;
-}
+
+
 
 #search-button{
         animation-name: moveToLeft;
@@ -129,4 +128,17 @@
 /* ****************************************Hash type button************************************************************* */
 .hash-type-button{
         background-color: #349769;
+}
+
+
+
+
+/* ********************************************* Search Page ******************************* */
+#search-page{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: transparent;
 }

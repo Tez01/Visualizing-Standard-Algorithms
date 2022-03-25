@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
                                 // make new buttons after half time has spent for animation of search button 1
                                 setTimeout(()=>{
-                                        resolve(makeButtons(buttonText, document.querySelector(".root-container"), "button algorithm-type-button"));    
+                                        resolve(makeButtons(buttonText, document.querySelector("#search-page"), "button algorithm-type-button"));    
                                 }, 
                                 (parseInt(window.getComputedStyle(searchButton1).animationDuration.split("s")[0]) / 2) * 1000)
                                 // This parseInt here is just calculating the half of time taken for searchButton1 to complete its animation
@@ -28,33 +28,47 @@ document.addEventListener('DOMContentLoaded', function(){
                         const algorithmTypeButtons= document.querySelectorAll('.algorithm-type-button');
                         for(var i = 0; i < algorithmTypeButtons.length;i++){
                                 // Add on click event listener for all buttons that are algorithm type
-                                algorithmTypeButtons[i].onclick = function(){  
+                                algorithmTypeButtons[i].onclick = async function(){  
                                          // Disable the button so that its only clickable once
                                         disableClick(this);
                                         
                                         // Keep only this element in the parent container and remove others
                                         keepOneElement(this);
 
+                                        
+
                                         // create more buttons for algorithms 
                                         // For search algorithms
                                         if(this.innerHTML === "Search"){
                                                 let searchAlgorithmList = ["Binary Search", "Depth First Search", "Breadth First Search"]
-                                                makeButtons(searchAlgorithmList, document.querySelector(".root-container"), "button search-type-button")
+                                                await makeButtons(searchAlgorithmList, document.querySelector("#search-page"), "button search-type-button stage3")
+                                                
                                         }
                                         // For Hash algorithms
                                         else if((this.innerHTML === "Sort")){
                                                 let sortAlgorithmList = ["Merge Sort", "Quick Sort", "Bubble Sort", "Insertion Sort"]
-                                                makeButtons(sortAlgorithmList, document.querySelector(".root-container"), "button sort-type-button")
+                                                await makeButtons(sortAlgorithmList, document.querySelector("#search-page"), "button sort-type-button stage3")
 
                                         }      // For Hash algorithms
                                         else if((this.innerHTML === "Hash")){
                                                 let hashAlgorithmList = ["MD5", "SHA-1", "SHA-2"]
-                                                makeButtons(hashAlgorithmList, document.querySelector(".root-container"), "button hash-type-button")
+                                                await makeButtons(hashAlgorithmList, document.querySelector("#search-page"), "button hash-type-button stage3")
 
+                                        }
+                                        else{
+                                                throw new Error("Unknown button");
                                         }      
-                                               
+                                        
+                                        const stage3Buttons= document.querySelectorAll('.stage3');
+                                        for(var i = 0; i < stage3Buttons.length;i++){
+                                                stage3Buttons[i].onclick = ()=> {
+                                                        document.querySelector('#')
+
+                                                }   
+                                        }
                                 
                                 }
+                        
                         }
                 })
                 // Disable the button so that its only clickable once
@@ -93,7 +107,6 @@ function startAnimation(element){
  * @return  Nothing
  */
 function makeButtons( buttonText, containerToAddButtons, classList = null){
-
         // Create a container to save all buttons
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add("button-container");
@@ -101,12 +114,14 @@ function makeButtons( buttonText, containerToAddButtons, classList = null){
         // Create buttons in the container based on number of text items in buttonText
         for(let button = 0; button < buttonText.length; button++){
                 buttonContainer.innerHTML += `<button type="button" class="${classList == null ? "" : `${classList}`}" >${buttonText[button]}</button>`
-                                                                             // if classList is null, set class equal to empty string, otherwise equal to classList
+                                                                        // if classList is null, set class equal to empty string, otherwise equal to classList
         }
         startAnimation(buttonContainer);
         // Add the element to the container passed in argument
         containerToAddButtons.append(buttonContainer);
-
+        return new  Promise((resolve, reject) =>{
+                resolve("Done")
+        })
 }
 
 
