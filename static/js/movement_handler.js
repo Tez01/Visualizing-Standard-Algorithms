@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
+        document.querySelector("#visualize-page").style.display = 'none'
+        
         // Find search button
         const searchButton1 = document.querySelector('#search-button');
         
@@ -10,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 startAnimation(searchButton1);
 
                 const buttonText = ["Search", "Sort", "Hash"]
-                console.log(typeof buttonText)
                 async function f(){
                         let promise = new  Promise((resolve, reject)=>{
 
@@ -59,10 +60,15 @@ document.addEventListener('DOMContentLoaded', function(){
                                                 throw new Error("Unknown button");
                                         }      
                                         
+                                        // Grab all above newly generated stage 3 buttons
                                         const stage3Buttons= document.querySelectorAll('.stage3');
+                                        // Add click event listeners for all newly generated stage 3 buttons
                                         for(var i = 0; i < stage3Buttons.length;i++){
                                                 stage3Buttons[i].onclick = ()=> {
-                                                        document.querySelector('#')
+
+                                                        document.querySelector('#search-page').style.display = 'none'      // On click, hide search page
+                                                        document.querySelector('#visualize-page').style.display = 'flex' // and display the visualize page
+                                                        
 
                                                 }   
                                         }

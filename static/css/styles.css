@@ -33,6 +33,16 @@
 
 }
 
+.slowAppear{
+        animation: elementAppear 1s forwards;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
+}
+
+.slowDisappear{
+        animation: elementDisappear 500ms forwards;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
+}
+
 /**************************************************Keyframes ***********************************************************/
 
 @keyframes moveToLeft{
@@ -63,6 +73,13 @@
         }
 }
 
+@keyframes elementDisappear{
+        
+
+        100%{
+                display: none;
+        }
+}
 
 @keyframes moveToCenter{
         
@@ -78,7 +95,7 @@
 
 
 #search-button{
-        animation-name: moveToLeft;
+        animation-name: moveToLeft; 
         animation-duration: 2000ms;
         animation-fill-mode: forwards;
         background-color: #007500;
@@ -103,7 +120,7 @@
         background-color:#f44336;
         animation: moveToCenter 1s;
         animation-fill-mode: forwards;
-        animation-play-state: paused;
+        animation-play-state: paused; /* Turn on in javascript code  when required*/
         
 
 }
@@ -112,7 +129,7 @@
 
 .slowAppear{
         animation: elementAppear 1s forwards;
-        animation-play-state: paused;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
 }
 
 /* ****************************************Search type button************************************************************* */
@@ -140,5 +157,11 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        background-color: transparent;
+}
+
+#visualize-page{
+        height: 100vh;
+        width: 100vw;
         background-color: transparent;
 }

@@ -11,5 +11,5 @@ router = APIRouter(
 
 @router.get("", status_code= status.HTTP_200_OK, response_class = HTMLResponse)
 async def home(request: Request):
-        return templates.TemplateResponse("components/search.html", {"request": request})
+        return templates.TemplateResponse("shared/layout.html", {"request": request})
 
