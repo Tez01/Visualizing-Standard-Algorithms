@@ -27,55 +27,57 @@ document.addEventListener('DOMContentLoaded', function(){
                 f().then(()=>{
                         // Find search button
                         const algorithmTypeButtons= document.querySelectorAll('.algorithm-type-button');
-                        for(var i = 0; i < algorithmTypeButtons.length;i++){
+                        algorithmTypeButtons.forEach((button) =>{
+                                button.onclick = async function(){  
+                                        // Disable the button so that its only clickable once
+                                       disableClick(this);
+                                       
+                                       // Keep only this element in the parent container and remove others
+                                       keepOneElement(this);
+
+                                       // Push to history the state of the buttonc clicked
+                                       addToHistory({data: null, title: null, url: `${button.innerHTML}`});
+
+                                       // create more buttons for algorithms 
+                                       // For search algorithms
+                                       if(this.innerHTML === "Search"){
+                                               //history.pushState({"Pkore": "Khalo"}, "", "home/Search")
+                                               let searchAlgorithmList = ["Binary Search", "Depth First Search", "Breadth First Search"]
+                                               await makeButtons(searchAlgorithmList, document.querySelector("#search-page"), "button search-type-button stage3")
+                                               
+                                       }
+                                       // For Hash algorithms
+                                       else if((this.innerHTML === "Sort")){
+                                               let sortAlgorithmList = ["Merge Sort", "Quick Sort", "Bubble Sort", "Insertion Sort"]
+                                               await makeButtons(sortAlgorithmList, document.querySelector("#search-page"), "button sort-type-button stage3")
+
+                                       }      // For Hash algorithms
+                                       else if((this.innerHTML === "Hash")){
+                                               let hashAlgorithmList = ["MD5", "SHA-1", "SHA-2"]
+                                               await makeButtons(hashAlgorithmList, document.querySelector("#search-page"), "button hash-type-button stage3")
+
+                                       }
+                                       else{
+                                               throw new Error("Unknown button");
+                                       }      
+                                       
+                                       // Grab all above newly generated stage 3 buttons
+                                       const stage3Buttons= document.querySelectorAll('.stage3');
+                                       // Add click event listeners for all newly generated stage 3 buttons
+                                       stage3Buttons.forEach((button) => {
+                                               button.onclick = ()=> {
+                                                        addToHistory({data: null, title: null, url: `${window.location.href +'/' +  button.innerHTML}`});
+                                                       document.querySelector('#search-page').style.display = 'none'      // On click, hide search page
+                                                       document.querySelector('#visualize-page').style.display = 'flex' // and display the visualize page
+                                                       
+
+                                               }   
+                                       });
+                               
+                               }
                                 // Add on click event listener for all buttons that are algorithm type
-                                algorithmTypeButtons[i].onclick = async function(){  
-                                         // Disable the button so that its only clickable once
-                                        disableClick(this);
-                                        
-                                        // Keep only this element in the parent container and remove others
-                                        keepOneElement(this);
-
-                                        
-
-                                        // create more buttons for algorithms 
-                                        // For search algorithms
-                                        if(this.innerHTML === "Search"){
-                                                let searchAlgorithmList = ["Binary Search", "Depth First Search", "Breadth First Search"]
-                                                await makeButtons(searchAlgorithmList, document.querySelector("#search-page"), "button search-type-button stage3")
-                                                
-                                        }
-                                        // For Hash algorithms
-                                        else if((this.innerHTML === "Sort")){
-                                                let sortAlgorithmList = ["Merge Sort", "Quick Sort", "Bubble Sort", "Insertion Sort"]
-                                                await makeButtons(sortAlgorithmList, document.querySelector("#search-page"), "button sort-type-button stage3")
-
-                                        }      // For Hash algorithms
-                                        else if((this.innerHTML === "Hash")){
-                                                let hashAlgorithmList = ["MD5", "SHA-1", "SHA-2"]
-                                                await makeButtons(hashAlgorithmList, document.querySelector("#search-page"), "button hash-type-button stage3")
-
-                                        }
-                                        else{
-                                                throw new Error("Unknown button");
-                                        }      
-                                        
-                                        // Grab all above newly generated stage 3 buttons
-                                        const stage3Buttons= document.querySelectorAll('.stage3');
-                                        // Add click event listeners for all newly generated stage 3 buttons
-                                        for(var i = 0; i < stage3Buttons.length;i++){
-                                                stage3Buttons[i].onclick = ()=> {
-
-                                                        document.querySelector('#search-page').style.display = 'none'      // On click, hide search page
-                                                        document.querySelector('#visualize-page').style.display = 'flex' // and display the visualize page
-                                                        
-
-                                                }   
-                                        }
-                                
-                                }
-                        
-                        }
+                               
+                        })
                 })
                 // Disable the button so that its only clickable once
                 disableClick(searchButton1);
@@ -87,6 +89,8 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 
+
+/* ********************************** Helper functions *************************************/
 
 /**
  * Starts the animation for a particular element passed as argument.  Undefined if element doesnot have any
@@ -163,4 +167,14 @@ function keepOneElement(element){
         parent.appendChild(element);
         startAnimation(element);
 
+}
+
+/**
+ * Just a wrapper around history.pushState
+ * 
+ * @param {object} historyParameters, parameters such as state, title and url to add to history for a state
+ * @return  Nothing
+ */
+function addToHistory(historyParameters){
+        history.pushState(historyParameters.data, historyParameters.title, historyParameters.url);
 }
