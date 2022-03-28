@@ -94,16 +94,18 @@
 
 
 
-#search-button{
+.search-button{
         animation-name: moveToLeft; 
         animation-duration: 2000ms;
         animation-fill-mode: forwards;
-        background-color: #007500;
+        
         margin-right: 10%;
         
 }
 
-
+#sb1{
+        background-color: #007500;
+}
 
 
 
@@ -160,8 +162,3 @@
         background-color: transparent;
 }
 
-#visualize-page{
-        height: 100vh;
-        width: 100vw;
-        background-color: transparent;
-}

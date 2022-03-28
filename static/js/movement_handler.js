@@ -1,17 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(){
-        if (window.performance) {
-                console.info("window.performance works fine on this browser");
-              }
-              console.info(performance.navigation.type);
-              if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-                console.info( "This page is reloaded" );
-              } else {
-                console.info( "This page is not reloaded");
-        }
         document.querySelector("#visualize-page").style.display = 'none'
         
-        // Find search button
-        const searchButton1 = document.querySelector('#search-button');
+        // Find search button 1
+        const searchButton1 = document.querySelector('#sb1');
         
         // Pause animation
         searchButton1.style.animationPlayState = 'paused';
@@ -75,10 +66,9 @@ document.addEventListener('DOMContentLoaded', function(){
                                        // Add click event listeners for all newly generated stage 3 buttons
                                        stage3Buttons.forEach((button) => {
                                                button.onclick = ()=> {
-                                                        addToHistory({data: null, title: null, url: `${window.location.href +'/' +  button.innerHTML}`});
+                                                       addToHistory({data: null, title: null, url: `${window.location.href +'/' +  button.innerHTML}`});
                                                        document.querySelector('#search-page').style.display = 'none'      // On click, hide search page
                                                        document.querySelector('#visualize-page').style.display = 'flex' // and display the visualize page
-                                                       
 
                                                }   
                                        });

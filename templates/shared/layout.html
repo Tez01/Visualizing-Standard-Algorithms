@@ -5,8 +5,13 @@
 
                 <!-- Include Bootstrap  -->
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-                <!-- Personal CSS  -->
+                <!-- Personal CSS for home page -->
                 <link href = "{{url_for('static', path='/css/styles.css')}}" rel = "stylesheet">
+
+                <!-- Personal CSS for visualize page -->
+                <link href = "{{url_for('static', path='/css/visualize_styles.css')}}" rel = "stylesheet">
+
+                <!-- Javascript for home page -->
                 <script src = "{{ url_for('static', path = '/js/movement_handler.js') }}"></script>
                 {% block titleBlock %}
                 {% endblock %}
@@ -15,11 +20,19 @@
 
                 <!-- Block for search page. Go to search.html for further code -->
                 <div id = "search-page" class = "slowDisappear">
-                        <button type="button" id= "search-button" class = "button ">Choose Algorithm</button>
+                        <button type="button" id= "sb1" class = "button search-button">Choose Algorithm</button>
                 </div>
                 <!-- Block for visualize page. Go to visualize.html for further code -->
-                <div id = "visualize-page">        
-                        <p style = "color:white;">Welcome to the visualize page!!!!!!!!!!!!!!!!!!!!!</p>
+                <div id = "visualize-page">  
+                        <!-- Input field -->
+                        <label for = "input-data-field">Input data here: </label>      
+                        <input type = "text" id = "input-data" name="input-data-field">
+
+                        <!--  -->
                 </div> 
+
+                <!--Javascript for visualize page -->
+                <script src=  "{{ url_for('static', path = '/js/visualize_handler.js') }}"></script>
+
         </body>
 </html>

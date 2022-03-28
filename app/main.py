@@ -12,7 +12,7 @@ app.mount("/static", StaticFiles(directory = "static"), name = "static")
 # Include created routes in the router folder to the main application.
 app.include_router(home.router) 
 
-@app.get("/")
-async def goToHome(request: Request):
+@app.get("/{anyUrl}/{anyUrl2}")
+async def goToHome(anyUrl,anyUrl2, request: Request):
         # Redirect to home
         return RedirectResponse("/home")

@@ -1,3 +1,4 @@
 1. Animate hiding and display of pages
 2. Find a way to get extensions done in html proeperly.
 3. Make server arrangement for urls. Update the page if url is at stage 1, 2 or 3
+4. Also do step 3 for page forward and backward
