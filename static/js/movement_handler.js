@@ -36,12 +36,11 @@ document.addEventListener('DOMContentLoaded', function(){
                                        keepOneElement(this);
 
                                        // Push to history the state of the buttonc clicked
-                                       addToHistory({data: null, title: null, url: `${button.innerHTML}`});
+                                //        addToHistory({data: null, title: null, url: `${button.innerHTML}`});
 
                                        // create more buttons for algorithms 
                                        // For search algorithms
                                        if(this.innerHTML === "Search"){
-                                               //history.pushState({"Pkore": "Khalo"}, "", "home/Search")
                                                let searchAlgorithmList = ["Binary Search", "Depth First Search", "Breadth First Search"]
                                                await makeButtons(searchAlgorithmList, document.querySelector("#search-page"), "button search-type-button stage3")
                                                
@@ -64,16 +63,22 @@ document.addEventListener('DOMContentLoaded', function(){
                                        // Grab all above newly generated stage 3 buttons
                                        const stage3Buttons= document.querySelectorAll('.stage3');
                                        // Add click event listeners for all newly generated stage 3 buttons
+                                       
                                        stage3Buttons.forEach((button) => {
-                                               button.onclick = ()=> {
-                                                       addToHistory({data: null, title: null, url: `${window.location.href +'/' +  button.innerHTML}`});
+                                        
+
+                                               button.onclick = function() {
+                                                //        addToHistory({data: null, title: null, url: `${window.location.href +'/' +  button.innerHTML}`});
                                                        document.querySelector('#search-page').style.display = 'none'      // On click, hide search page
-                                                       document.querySelector('#visualize-page').style.display = 'flex' // and display the visualize page
+                                                       document.querySelector('#visualize-page').style.display = 'grid' // and display the visualize page
+                                                       document.querySelector("#vp-item1").innerHTML = `<h1>${this.textContent}</h1>`
+                                                       
 
                                                }   
                                        });
                                
                                }
+                               
                                 // Add on click event listener for all buttons that are algorithm type
                                
                         })
@@ -82,6 +87,21 @@ document.addEventListener('DOMContentLoaded', function(){
                 disableClick(searchButton1);
         };
 
+        searchButton1.click();
+        window.setInterval(()=>{
+                const button = document.querySelector(".algorithm-type-button");
+                button.click();
+                window.setInterval(()=>{
+                        const button = document.querySelector(".stage3");
+                        button.click();
+                },200);
+        },1000);
+        
+                
+        // window.setInterval(() =>{
+        //         searchButton1.click();
+                
+        // }, 500);
         
         
 

@@ -4,6 +4,7 @@
         background-color: black;
 }
 
+
 .button{
         font-size: 1.5em;
         color: white;
@@ -17,7 +18,7 @@
         transition-timing-function:cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .button:hover {
-        background-color: #52B2BF;
+        background-color: #52B2BF!important;
         /* box-shadow: rgba(247, 246, 246, 0.5) 0 3px 8px; */
         
 }
@@ -94,18 +95,15 @@
 
 
 
-.search-button{
+#sb1{
+        background-color: #007500;
         animation-name: moveToLeft; 
         animation-duration: 2000ms;
         animation-fill-mode: forwards;
-        
         margin-right: 10%;
-        
 }
 
-#sb1{
-        background-color: #007500;
-}
+
 
 
 
@@ -161,4 +159,5 @@
         align-items: center;
         background-color: transparent;
 }
+
 
