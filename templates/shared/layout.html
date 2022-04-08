@@ -13,7 +13,6 @@
 
                 <!-- Javascript for home page -->
                 <script src = "{{ url_for('static', path = '/js/movement_handler.js') }}"></script>
-                <script src = "{{ url_for('static', path = '/js/visualize_handler.js') }}"></script>
                 {% block titleBlock %}
                 {% endblock %}
         </head>
@@ -39,6 +38,7 @@
                         <button type="button" id= "vp-item4" class= "button">Start</button>
 
                 </div> 
+                <script src = "{{ url_for('static', path = '/js/visualize_handler.js') }}"></script>
 
         </body>
 </html>

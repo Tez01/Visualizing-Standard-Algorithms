@@ -1,5 +1,4 @@
-
-export function visualizeHandler(){
+document.addEventListener('DOMContentLoaded', function(){
 
         document.querySelector('#vp-item3-2').onkeyup = function(event){ // vp-item3-2 is the input box
                 if(event.key === ","){        
@@ -21,11 +20,12 @@ export function visualizeHandler(){
                         console.log(inputData)
                         if(inputData !== []){
                                 const algorithm = new SelectionSort(inputData)
+                                algorithm.visualize();
                         }
                 }
                 console.log(document.querySelector('#vp-item1').innerText)
         }
-}
+})
 
 
 /**
@@ -38,7 +38,7 @@ export function visualizeHandler(){
  * Assumes the inputArea parameter is a HTML DOM object, otherwise behaviour is undefined
  * @return  Nothing
  */
-export function displayList(arrayData, DOMElement){
+function displayList(arrayData, DOMElement){
         const cleanedArray = cleanArray(arrayData) // Clean the input array for any non-real number values.
         const maxValue = getMaxInArray(cleanedArray);// Get max value in array
         console.log(`Cleaned array: ${cleanedArray} , maxValue: ${maxValue}`);
@@ -55,7 +55,7 @@ export function displayList(arrayData, DOMElement){
  * @param {array}  arrayData an array of data for which visualization need to be done.
  * Assumes everyelement is a real number in the arrayData
  */
-export function getMaxInArray(arrayData){
+function getMaxInArray(arrayData){
         return arrayData.reduce(function(a, b) {  
                         return Math.max(a, b);
         }, -Infinity);
@@ -68,7 +68,7 @@ export function getMaxInArray(arrayData){
  * @param {array}  arrayData an array of data for which visualization need to be done.
  * Assumes everyelement is a real number in the arrayData
  */
-export function cleanArray(arrayData){
+function cleanArray(arrayData){
         newArray = [];
         arrayData.forEach((element) =>{
                 if(!isNaN(parseInt(element))){  // If element is not a NaN
@@ -86,7 +86,7 @@ export function cleanArray(arrayData){
  * @param {object}  parent parent element from which all childs will be removed
  * Assumes everyelement is a real number in the arrayData
  */
-export function clearDiv(parent){
+function clearDiv(parent){
         while(parent.firstChild){
                 parent.removeChild(parent.firstChild);
         }
@@ -102,7 +102,7 @@ export function clearDiv(parent){
  * Assumes all parameters are valid, otherwise behaviour is undefined. Example for typeOfElement "z", behaviour is undefined.
  * 
  */
-export function createElem(typeOfElement, id, classList, styleString){
+function createElem(typeOfElement, id, classList, styleString){
         const element = document.createElement(typeOfElement);
         // Add id
         element.setAttribute('id', id);
@@ -116,3 +116,38 @@ export function createElem(typeOfElement, id, classList, styleString){
         return element;
 
 }
+
+
+document.addEventListener('DOMContentLoaded', function(){
+        
+});
+
+class Algorithm{
+        
+        constructor(arrayData, algorithmName){
+                this.data = arrayData;
+                this.name = algorithmName;
+        }
+        
+}
+
+class SelectionSort extends Algorithm{
+        constructor(arrayData){
+                super(arrayData, "Selection Sort")
+        }
+
+        visualize(){
+                //makeTwoPortions
+                const visualizeContainer = document.querySelector("#vp-item2-2");
+                visualizeContainer.style.gridTemplateRows = "9fr 2fr"
+                // Appear single box below first box after green and assign it min value
+                // Make both red
+                // Go to end while checking minimum, if new minimum found make that bar red
+                // Make the bar which is red move to after green and make it green
+                // repeat step 2 - 5
+
+        }
+
+}
+
+

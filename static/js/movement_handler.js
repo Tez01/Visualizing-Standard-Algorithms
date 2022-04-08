@@ -1,4 +1,4 @@
-import * as Visualize from "./visualize_handler.js";
+
 document.addEventListener('DOMContentLoaded', function(){
         document.querySelector("#visualize-page").style.display = 'none'
         
@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function(){
                                
                         })
                 })
-                Visualize.visualizeHandler();
                 // Disable the button so that its only clickable once
                 disableClick(searchButton1);
         };
@@ -199,3 +198,6 @@ function keepOneElement(element){
 function addToHistory(historyParameters){
         history.pushState(historyParameters.data, historyParameters.title, historyParameters.url);
 }
+
+
+

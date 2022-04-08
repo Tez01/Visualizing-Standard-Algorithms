@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function(){
+        
+});
+
 class Algorithm{
         
         constructor(arrayData, algorithmName){
@@ -26,5 +30,4 @@ class SelectionSort extends Algorithm{
 
 }
 
-export {SelectionSort}
 
