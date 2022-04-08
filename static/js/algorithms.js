@@ -7,17 +7,24 @@ class Algorithm{
         
 }
 
-class BinarySearch extends Algorithm{
-        constructor(arrayData, target){
-                super(arrayData, "Binary Search")
-                this.target = target;
+class SelectionSort extends Algorithm{
+        constructor(arrayData){
+                super(arrayData, "Selection Sort")
         }
 
         visualize(){
-                
+                //makeTwoPortions
+                const visualizeContainer = document.querySelector("vp-item2-2");
+                visualizeContainer.style.gridTemplateRows = "9fr 2fr"
+                // Appear single box below first box after green and assign it min value
+                // Make both red
+                // Go to end while checking minimum, if new minimum found make that bar red
+                // Make the bar which is red move to after green and make it green
+                // repeat step 2 - 5
+
         }
 
 }
 
-const myAlgo = new BinarySearch([1,2,3], 1)
+export {SelectionSort}
 

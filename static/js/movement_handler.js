@@ -1,3 +1,4 @@
+import * as Visualize from "./visualize_handler.js";
 document.addEventListener('DOMContentLoaded', function(){
         document.querySelector("#visualize-page").style.display = 'none'
         
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
         searchButton1.onclick = function(){
                 startAnimation(searchButton1);
 
-                const buttonText = ["Search", "Sort", "Hash"]
+                const buttonText = ["Sort", "Search", "Hash"]
                 async function f(){
                         let promise = new  Promise((resolve, reject)=>{
 
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function(){
                                        }
                                        // For Hash algorithms
                                        else if((this.innerHTML === "Sort")){
-                                               let sortAlgorithmList = ["Merge Sort", "Quick Sort", "Bubble Sort", "Insertion Sort"]
+                                               let sortAlgorithmList = ["Selection Sort", "Merge Sort", "Quick Sort", "Bubble Sort", "Insertion Sort"]
                                                await makeButtons(sortAlgorithmList, document.querySelector("#search-page"), "button sort-type-button stage3")
 
                                        }      // For Hash algorithms
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function(){
                                
                         })
                 })
+                Visualize.visualizeHandler();
                 // Disable the button so that its only clickable once
                 disableClick(searchButton1);
         };

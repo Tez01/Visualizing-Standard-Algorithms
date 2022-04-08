@@ -13,6 +13,7 @@
 
                 <!-- Javascript for home page -->
                 <script src = "{{ url_for('static', path = '/js/movement_handler.js') }}"></script>
+                <script src = "{{ url_for('static', path = '/js/visualize_handler.js') }}"></script>
                 {% block titleBlock %}
                 {% endblock %}
         </head>
@@ -25,7 +26,11 @@
                 <!-- Block for visualize page. Go to visualize.html for further code -->
                 <div id = "visualize-page">  
                         <div id = "vp-item1"></div>  <!-- The content of this div will be dynamically generated in javascript -->
-                        <div id="vp-item2"></div>    <!--vp means visualization page. -->
+                        <div id = "vp-item2">
+                                <div id= "vp-item2-1"></div>
+                                <div id="vp-item2-2">Viduslixsitn</div>    <!--vp means visualization page. -->
+                                <div id= "vp-item2-3"></div>
+                        </div>
                         <form id="vp-item3">
                                 <!-- Input field -->
                                 <label for = "input-data-field" id="vp-item3-1"  >Input list data here: </label>  
@@ -34,9 +39,6 @@
                         <button type="button" id= "vp-item4" class= "button">Start</button>
 
                 </div> 
-
-                <!--Javascript for visualize page -->
-                <script src=  "{{ url_for('static', path = '/js/visualize_handler.js') }}"></script>
 
         </body>
 </html>
