@@ -1,28 +1,37 @@
 document.addEventListener('DOMContentLoaded', function(){
         let inputData = null;
         let cleanedArray = null;
-        document.querySelector('#vp-item3-2').onkeyup = function(event){ // vp-item3-2 is the input box
-                if(event.key === ","){        
-                        clearDiv(document.querySelector('#vp-item2-2'));    // Clear the visualization area
+        // document.querySelector('#vp-item3-2').onkeyup = function(event){ // vp-item3-2 is the input box
+        //         if(event.key === ","){        
+        //                 clearDiv(document.querySelector('#vp-item2-2'));    // Clear the visualization area
+        //                 //visualize the input in the textbox
+        //                 const visualizeDiv = createElem("div", "vp-item2-2-1", [], "", "visualizeDiv")  // This is dynamically created here,
+        //                                                                          // So that previous display is cleared and can start displaying from fresh.
+        //                 document.querySelector('#vp-item2-2').append(visualizeDiv);
+        //                 inputData = this.value.split(",")
+        //                 cleanedArray = cleanArray(inputData) // Clean the input array for any non-real number values.
+        //                 displayList(cleanedArray, document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
+        //         }
+                         
+        // }
+        clearDiv(document.querySelector('#vp-item2-2'));    // Clear the visualization area
                         //visualize the input in the textbox
-                        const visualizeDiv = createElem("div", "vp-item2-2-1", [], "", "visualizeDiv")  // This is dynamically created here,
-                                                                                 // So that previous display is cleared and can start displaying from fresh.
-                        document.querySelector('#vp-item2-2').append(visualizeDiv);
-                        inputData = this.value.split(",")
-                        cleanedArray = cleanArray(inputData) // Clean the input array for any non-real number values.
-                        displayList(cleanedArray, document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
-                }         
-        }
+        const visualizeDiv = createElem("div", "vp-item2-2-1", [], "", "visualizeDiv")  // This is dynamically created here,
+                                                                                 // So that previous display i
+        document.querySelector('#vp-item2-2').append(visualizeDiv);
+        displayList([1,2,3,2,6,4,9,7,5], document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
 
+        
         // Visualize on clicking start
         document.querySelector('#vp-item4').onclick = function(){       // When start button is clicked
                 if(document.querySelector('#vp-item1').innerText === "Selection Sort"){ 
-                        if(inputData !== null){
+                //        if(inputData !== null){
                                 disableClick(this)
+                                // Disable also the textbox to not allow more inputs
+                                document.querySelector('#vp-item3-2').disabled = 'true'
                                 const algorithm = new SelectionSort(cleanedArray)
                                 algorithm.visualize();
-                                console.log(this)
-                        }
+                //        }
                 }
         }
 })
@@ -43,7 +52,8 @@ function displayList(arrayData, DOMElement){
         const maxValue = getMaxInArray(arrayData);// Get max value in array
         console.log(`Cleaned array: ${arrayData} , maxValue: ${maxValue}`);
         arrayData.forEach(dataElement=>{
-                const element = createElem('div', "", ["rectangle"], `height : ${parseInt((dataElement/ maxValue) * 100)}%`)
+                const element = createElem('div', "", ["rectangle"], `height : ${parseInt((dataElement/ maxValue) * 100)}%; text-align:center;`)
+                element.innerHTML = dataElement;
                 DOMElement.append(element);
         });
 
@@ -120,9 +130,6 @@ function createElem(typeOfElement, id, classList, styleString, name){
 }
 
 
-document.addEventListener('DOMContentLoaded', function(){
-        
-});
 
 class Algorithm{
         
@@ -141,17 +148,87 @@ class SelectionSort extends Algorithm{
                 console.log(this);
         }
 
-        visualize(){
+        async visualize(){
                 //makeTwoPortions
                 const visualizeContainer = document.querySelector("#vp-item2-2");
                 document.documentElement.style.setProperty('--visualize-grid-template-row', "8fr 2fr");  // Set the grid row template to make shrinking effect
-                visualizeContainer.style.setProperty('animation-play-state', 'running') // Start animation for shrinking
-                // Appear single box below first box after green and assign it min value
-                // Make both red
-                // Go to end while checking minimum, if new minimum found make that bar red
-                // Make the bar which is red move to after green and make it green
-                // repeat step 2 - 5
+                
 
+                // create move bar container
+                const moveBarContainer = createElem("div", "vp-item2-2-2",[], "","")
+
+                // Add the moveBarContainer to cascade under visualizing area
+                visualizeContainer.append(moveBarContainer)
+                await waitForAnimationToComplete(visualizeContainer) // Wait till animation is complete
+                
+                // get left position and width of first bar in visualization area
+                const positionFromLeft = document.querySelector("#vp-item2-2-1").childNodes[0].getBoundingClientRect().left - document.querySelector("#vp-item2-2-1").getBoundingClientRect().left
+                const widthOfBar = document.querySelector("#vp-item2-2-1").childNodes[1].getBoundingClientRect().left - document.querySelector("#vp-item2-2-1").childNodes[0].getBoundingClientRect().left
+                // Create a moving box of that width at that left position 
+                const movingBox = createElem("div", "vp-item2-2-2-1", ["rectangle", "redBackground"], `position: relative; left: ${positionFromLeft}px; width: ${widthOfBar}px; height: 30px; text-align: center`, "")
+                
+               
+               moveBarContainer.append(movingBox)
+               await waitForAnimationToComplete(movingBox) // Wait till animation is complete
+              
+                // Make first bar red
+                document.querySelector("#vp-item2-2-1").childNodes[0].classList.add("redBackground")
+                // Set minimum value inside red box
+                movingBox.innerHTML = document.querySelector("#vp-item2-2-1").childNodes[0].innerHTML
+                // window.setInterval(()=>{document.querySelector("#vp-item2-2-1").childNodes[0].classList.remove("redBackground")}, 10000);  
+
+                // Get parent element of bars, id vp-item2-2-1
+                let parent =  document.querySelector("#vp-item2-2-1")
+
+                let currentStartIndex = 0;
+                while(currentStartIndex < parent.childNodes.length){ 
+                        let currentMinBar = document.querySelector("#vp-item2-2-1").childNodes[currentStartIndex]
+
+                        // Make current Min Bar Red
+                        currentMinBar.classList.add("redBackground")
+                        // Set minimum value inside Min box
+                        movingBox.innerHTML = currentMinBar.innerHTML
+                        moveUnder(movingBox, currentMinBar)
+                        await delay(1000);
+
+                        let nextBarIndex = currentStartIndex + 1;
+                        let nextBar = document.querySelector("#vp-item2-2-1").childNodes[nextBarIndex]
+                        while(nextBar != undefined){
+        
+                                // Move under next bar
+                                moveUnder(movingBox, nextBar)
+                                // await delay(1000);
+
+                                if(parseInt(nextBar.innerHTML) < parseInt(currentMinBar.innerHTML)){
+                                        //Remove Min color from previous Min bar
+                                        currentMinBar.classList.remove("redBackground")
+                                        // Make next Bar new min bar and change color to red
+                                        nextBar.classList.add("redBackground")
+                                        currentMinBar = nextBar
+                                        
+                                         
+        
+                                        console.log("Less")
+        
+        
+                                }
+        
+                                nextBar = document.querySelector("#vp-item2-2-1").childNodes[++nextBarIndex]
+                                
+        
+                        }
+                        // Remove red color from currentMin Bar and make it green
+                        currentMinBar.classList.remove('redBackground')
+                        currentMinBar.classList.add("greenBackground")
+                        if(currentMinBar !== document.querySelector("#vp-item2-2-1").childNodes[currentStartIndex] ){
+                                swap( currentMinBar, document.querySelector("#vp-item2-2-1").childNodes[currentStartIndex])
+                        }
+                        
+                        
+
+                        currentStartIndex++;   
+                }
+                
         }
 
 }
@@ -166,3 +243,141 @@ class SelectionSort extends Algorithm{
  function disableClick(element){
         element.onclick = null;
 }
+
+
+/**
+ * Move the element passed as argument under the second element in argument
+ * 
+ * @param {object} element1 Element which need to be moved
+ * @param {object} element2 Element under which element1 needs to be moved
+ * @return  Nothing
+ */
+ function moveUnder(element1, element2){
+         let leftValueElement2 = element2.getBoundingClientRect().left - document.querySelector("#vp-item2-2-1").getBoundingClientRect().left
+         console.log(leftValueElement2)
+        element1.style.left= leftValueElement2 + 'px'
+ }
+
+
+ /**
+ * Swap two html elements. Assumes both elements are not restricted in movement by anything(Eg: by flex or grid conditions).
+ * 
+ * @param {object} element1 DOM element 1
+ * @param {object} element2 DOM element 1
+ * @return  Nothing
+ */
+
+ function swap(element1, element2){
+         let element2Copy = element2;
+         element2 = element1;
+         element1 = element2;
+ }
+
+ /**
+ * Resolves only when the animation has been complete
+ * 
+ * @param {object} element Element for which animation needs to be turned on and waited
+ * @return Promise
+ */
+
+function waitForAnimationToComplete(element){
+        return new Promise((resolve, reject) =>{
+                element.style.animationPlayState = 'running';
+                console.log(window.getComputedStyle(element).animationDuration)
+                setTimeout(()=>{
+                        resolve('Resolved')
+                }, getAnimationTime(element))
+        })
+}
+
+
+
+ /**
+ * Returns the animation time(in ms) of element passed as argument 
+ * 
+ * @param {object} element Element for which animation time needs to be calculated. Assumes animation property 
+ * exist for the element, otherwise result is undefined
+ * @return {string} Animation time in millisecs
+ */
+function getAnimationTime(element){
+        // parse the float portion from animation duration and multiply by 1000 to make millisecs
+        let animationTime = parseFloat(window.getComputedStyle(element).animationDuration) * 1000 
+
+        if(!(isNaN(animationTime))){
+                return animationTime
+        }
+        return "undefined"
+}
+
+ /**
+ * Creates a delay in the code for amount of milliseconds passed as argument.
+ * . Assumes delayTime is a valid number otherwise result is undefined.
+ * 
+ * @param {number} delayTime time for delay
+ * @return nothing
+ */
+function delay(delayTime){
+        return new Promise((resolve, reject) =>{
+                try{
+                        setTimeout(()=>{
+                                resolve(`Done waiting ${delayTime}ms`)
+                        }, delayTime)
+                }
+                catch{
+                        reject('Some error happened in setTimeOut function')
+                }
+        })
+}
+
+
+
+ /**
+ * Swaps the two elements. This function is specific for this setup only. Only created to make
+ * separation of task. Assumes both elements have same parent.
+ * 
+ * @param {object} element1 First DOM element
+ * @param {object} element2 Second DOM element
+ * @return nothing
+ */
+  function swap(element1, element2){
+        element1.classList.add('swapTransition')
+        element2.classList.add('swapTransition')
+
+        let newElement1X = null
+        
+        let newElement2X = null
+
+
+        // Get new X for both elements which would appear after swapping
+        newElement1X = element2.getBoundingClientRect().left - element1.getBoundingClientRect().left;
+        newElement2X = element1.getBoundingClientRect().left - element2.getBoundingClientRect().left;
+
+        // Translate both elements to new positions
+        element1.style.transform = `translateX(${newElement1X}px)`
+        element2.style.transform = `translateX(${newElement2X}px)`
+
+
+        
+
+        // // // Translating does not actually change the order of element in parent's childNodes.
+        // // // So change that using insert before.
+        // setTimeout(()=>{
+        //         let parent = element1.parentElement;
+        //         let nextToElement1 = element1.nextSibling
+        //         let nextToElement2 = element2.nextSibling
+        //         if(nextToElement2 !== element1){  //If both elements are not adjacent
+        //                 parent.insertBefore(element2, nextToElement1)  
+        //                 parent.insertBefore(element1, nextToElement2)
+        //         }
+        //         else{
+        //                 //If both elements are adjacent, only one of element need to be inserted before
+        //                 parent.insertBefore(element1, element2)
+        //         }
+                
+        //         element1.classList.remove('swapTransition')
+        //         element2.classList.remove('swapTransition')
+        // }, 300)
+        
+        
+  }
+

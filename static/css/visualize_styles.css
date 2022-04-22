@@ -39,6 +39,19 @@
         justify-content: center;
 
 }
+
+#vp-item2-2-1 > .swapTransition{
+        transition: transform ease-in 0.3s;
+}
+
+#vp-item2-2-2{
+        display: grid;
+        grid-row: auto;
+        background-color: rgb(40, 38, 38);
+        align-content: center;
+
+}
+
 #vp-item3{
         display: grid;
         grid-template-columns: 1fr 10fr auto;
@@ -57,7 +70,7 @@
 
 /* *********************************************Generic ******************************* */
 .rectangle{
-        height: 10%;
+        
         width: 10%;
         background-color: #0095B6;
         border: 2px solid black;
@@ -68,4 +81,29 @@
                 grid-template-rows: var(--visualize-grid-template-row, 9fr 2fr);
         }
         
+}
+
+@keyframes elementHalfAppear{
+        0%{
+                opacity: 0;
+        }
+
+        100%{
+                opacity: .8;
+        }
+}
+
+.redBackground{
+        background-color: red;
+        opacity: 80%;
+}
+.greenBackground{
+        background-color: green;
+        opacity: 50%;
+}
+
+.halfAppear{
+        animation: elementHalfAppear 1s forwards;
+        animation-iteration-count: 1;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
 }

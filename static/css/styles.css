@@ -36,6 +36,7 @@
 
 .slowAppear{
         animation: elementAppear 1s forwards;
+        animation-iteration-count: 1;
         animation-play-state: paused;  /* Turn on in javascript code  when required*/
 }
 

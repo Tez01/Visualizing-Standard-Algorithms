@@ -99,10 +99,10 @@ document.addEventListener('DOMContentLoaded', function(){
         },1000);
         
                 
-        // window.setInterval(() =>{
-        //         searchButton1.click();
+        window.setInterval(() =>{
+                searchButton1.click();
                 
-        // }, 500);
+        }, 500);
         
         
 
