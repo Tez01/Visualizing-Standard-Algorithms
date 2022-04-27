@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
         const visualizeDiv = createElem("div", "vp-item2-2-1", [], "", "visualizeDiv")  // This is dynamically created here,
                                                                                  // So that previous display i
         document.querySelector('#vp-item2-2').append(visualizeDiv);
-        displayList([1,2,3,2,6,4,9,7,5], document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
+        displayList([2,2,3,2,6,4,1,7,5], document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
 
         
         // Visualize on clicking start
@@ -205,10 +205,8 @@ class SelectionSort extends Algorithm{
                                         // Make next Bar new min bar and change color to red
                                         nextBar.classList.add("redBackground")
                                         currentMinBar = nextBar
-                                        
-                                         
-        
-                                        console.log("Less")
+                                        // Set minimum value inside Min box
+                                        movingBox.innerHTML = currentMinBar.innerHTML
         
         
                                 }
@@ -256,7 +254,6 @@ class SelectionSort extends Algorithm{
  */
  function moveUnder(element1, element2){
          let leftValueElement2 = element2.getBoundingClientRect().left - document.querySelector("#vp-item2-2-1").getBoundingClientRect().left
-         console.log(leftValueElement2)
         element1.style.left= leftValueElement2 + 'px'
  }
 
@@ -285,7 +282,6 @@ class SelectionSort extends Algorithm{
 function waitForAnimationToComplete(element){
         return new Promise((resolve, reject) =>{
                 element.style.animationPlayState = 'running';
-                console.log(window.getComputedStyle(element).animationDuration)
                 setTimeout(()=>{
                         resolve('Resolved')
                 }, getAnimationTime(element))
@@ -356,17 +352,18 @@ function delay(delayTime){
         newElement2X = element1.getBoundingClientRect().left - element2.getBoundingClientRect().left;
 
         // Translate both elements to new positions
-        // console.log(await translatePositions(element1, element2, newElement1X, newElement2X));
+        console.log(await translatePositions(element1, element2, newElement1X, newElement2X));
 
-
+        element1.style.removeProperty(`transform`)
+        element2.style.removeProperty(`transform`)
         
-
+        element1.classList.remove('swapTransition')
+        element2.classList.remove('swapTransition')
         // // Translating does not actually change the order of element in parent's childNode list.
         // // So change that using insert before.
         console.log(await changeOrderInNodelist(element1, element2 ));
         
-        element1.classList.remove('swapTransition')
-        element2.classList.remove('swapTransition')
+        
 
         return new Promise((resolve) => {
                 resolve("Done swapping")
@@ -383,7 +380,6 @@ function delay(delayTime){
           return new Promise((resolve)=>{
                 element1.style.transform = `translateX(${x1}px)`
                 element2.style.transform = `translateX(${x2}px)`
-                console.log(getTransitionTime(element1))
                 setTimeout(()=>{
                         resolve("Done translating position")
                 }, getTransitionTime(element1))
@@ -398,8 +394,9 @@ function delay(delayTime){
                 let nextToElement1 = element1.nextSibling
                 let nextToElement2 = element2.nextSibling
                 if(nextToElement2 !== element1){  //If both elements are not adjacent
-                        parent.insertBefore(element2, nextToElement1)  
+               
                         parent.insertBefore(element1, nextToElement2)
+                        parent.insertBefore(element2, nextToElement1)
                 }
                 else{
                         //If both elements are adjacent, only one of element need to be inserted before
