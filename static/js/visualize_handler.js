@@ -197,7 +197,7 @@ class SelectionSort extends Algorithm{
         
                                 // Move under next bar
                                 moveUnder(movingBox, nextBar)
-                                // await delay(1000);
+                                await delay(100);
 
                                 if(parseInt(nextBar.innerHTML) < parseInt(currentMinBar.innerHTML)){
                                         //Remove Min color from previous Min bar
@@ -220,8 +220,10 @@ class SelectionSort extends Algorithm{
                         // Remove red color from currentMin Bar and make it green
                         currentMinBar.classList.remove('redBackground')
                         currentMinBar.classList.add("greenBackground")
+
+                        // Only swap if the current min bar and currentStartIndex are different. 
                         if(currentMinBar !== document.querySelector("#vp-item2-2-1").childNodes[currentStartIndex] ){
-                                swap( currentMinBar, document.querySelector("#vp-item2-2-1").childNodes[currentStartIndex])
+                                console.log(await swap( currentMinBar, document.querySelector("#vp-item2-2-1").childNodes[currentStartIndex]))
                         }
                         
                         
@@ -267,7 +269,7 @@ class SelectionSort extends Algorithm{
  * @return  Nothing
  */
 
- function swap(element1, element2){
+ function swapHTML(element1, element2){
          let element2Copy = element2;
          element2 = element1;
          element1 = element2;
@@ -339,7 +341,8 @@ function delay(delayTime){
  * @param {object} element2 Second DOM element
  * @return nothing
  */
-  function swap(element1, element2){
+  async function swap(element1, element2){
+        
         element1.classList.add('swapTransition')
         element2.classList.add('swapTransition')
 
@@ -348,36 +351,81 @@ function delay(delayTime){
         let newElement2X = null
 
 
-        // Get new X for both elements which would appear after swapping
+        // Get new X position for both elements which would appear after swapping
         newElement1X = element2.getBoundingClientRect().left - element1.getBoundingClientRect().left;
         newElement2X = element1.getBoundingClientRect().left - element2.getBoundingClientRect().left;
 
         // Translate both elements to new positions
-        element1.style.transform = `translateX(${newElement1X}px)`
-        element2.style.transform = `translateX(${newElement2X}px)`
+        // console.log(await translatePositions(element1, element2, newElement1X, newElement2X));
 
 
         
 
-        // // // Translating does not actually change the order of element in parent's childNodes.
-        // // // So change that using insert before.
-        // setTimeout(()=>{
-        //         let parent = element1.parentElement;
-        //         let nextToElement1 = element1.nextSibling
-        //         let nextToElement2 = element2.nextSibling
-        //         if(nextToElement2 !== element1){  //If both elements are not adjacent
-        //                 parent.insertBefore(element2, nextToElement1)  
-        //                 parent.insertBefore(element1, nextToElement2)
-        //         }
-        //         else{
-        //                 //If both elements are adjacent, only one of element need to be inserted before
-        //                 parent.insertBefore(element1, element2)
-        //         }
-                
-        //         element1.classList.remove('swapTransition')
-        //         element2.classList.remove('swapTransition')
-        // }, 300)
+        // // Translating does not actually change the order of element in parent's childNode list.
+        // // So change that using insert before.
+        console.log(await changeOrderInNodelist(element1, element2 ));
+        
+        element1.classList.remove('swapTransition')
+        element2.classList.remove('swapTransition')
+
+        return new Promise((resolve) => {
+                resolve("Done swapping")
+        })
+               
+              
+        
         
         
   }
 
+
+  function translatePositions(element1, element2, x1, x2){
+          return new Promise((resolve)=>{
+                element1.style.transform = `translateX(${x1}px)`
+                element2.style.transform = `translateX(${x2}px)`
+                console.log(getTransitionTime(element1))
+                setTimeout(()=>{
+                        resolve("Done translating position")
+                }, getTransitionTime(element1))
+          })
+        
+  }
+
+
+  function changeOrderInNodelist(element1, element2 ){
+          return new Promise((resolve)=>{
+                let parent = element1.parentElement;
+                let nextToElement1 = element1.nextSibling
+                let nextToElement2 = element2.nextSibling
+                if(nextToElement2 !== element1){  //If both elements are not adjacent
+                        parent.insertBefore(element2, nextToElement1)  
+                        parent.insertBefore(element1, nextToElement2)
+                }
+                else{
+                        //If both elements are adjacent, only one of element need to be inserted before
+                        parent.insertBefore(element1, element2)
+                }
+                
+                setTimeout(()=>{
+                        resolve("Done changing Order")
+                        
+                }, 1000)
+          })
+  }
+
+   /**
+ * Returns the transition time(in ms) of element passed as argument 
+ * 
+ * @param {object} element Element for which transition time needs to be calculated. Assumes transition property 
+ * exist for the element, otherwise result is undefined
+ * @return {string} transition time in millisecs
+ */
+function getTransitionTime(element){
+        // parse the float portion from animation duration and multiply by 1000 to make millisecs
+        let transitionTime = parseFloat(window.getComputedStyle(element).transitionDuration) * 1000 
+
+        if(!(isNaN(transitionTime))){
+                return transitionTime
+        }
+        return "undefined"
+}
