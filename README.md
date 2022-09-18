@@ -1,4 +1,6 @@
 # Visualizing-Standard-Algorithms
+## Demo
+![](https://github.com/Tez01/Visualizing-Standard-Algorithms/blob/main/demo.gif)
 ## Download the repository
  * Use the following command to clone the repository in your local computer from github  
  `git clone <cloned address>`
