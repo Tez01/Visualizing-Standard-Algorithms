@@ -88,21 +88,21 @@ document.addEventListener('DOMContentLoaded', function(){
                 disableClick(searchButton1);
         };
 
-        searchButton1.click();
-        window.setInterval(()=>{
-                const button = document.querySelector(".algorithm-type-button");
-                button.click();
-                window.setInterval(()=>{
-                        const button = document.querySelector(".stage3");
-                        button.click();
-                },200);
-        },1000);
+        // searchButton1.click();
+        // window.setInterval(()=>{
+        //         const button = document.querySelector(".algorithm-type-button");
+        //         button.click();
+        //         window.setInterval(()=>{
+        //                 const button = document.querySelector(".stage3");
+        //                 button.click();
+        //         },200);
+        // },1000);
         
                 
-        window.setInterval(() =>{
-                searchButton1.click();
+        // window.setInterval(() =>{
+        //         searchButton1.click();
                 
-        }, 500);
+        // }, 500);
         
         
 

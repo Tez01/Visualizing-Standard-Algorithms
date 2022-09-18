@@ -1,25 +1,25 @@
 document.addEventListener('DOMContentLoaded', function(){
         let inputData = null;
         let cleanedArray = null;
-        // document.querySelector('#vp-item3-2').onkeyup = function(event){ // vp-item3-2 is the input box
-        //         if(event.key === ","){        
-        //                 clearDiv(document.querySelector('#vp-item2-2'));    // Clear the visualization area
-        //                 //visualize the input in the textbox
-        //                 const visualizeDiv = createElem("div", "vp-item2-2-1", [], "", "visualizeDiv")  // This is dynamically created here,
-        //                                                                          // So that previous display is cleared and can start displaying from fresh.
-        //                 document.querySelector('#vp-item2-2').append(visualizeDiv);
-        //                 inputData = this.value.split(",")
-        //                 cleanedArray = cleanArray(inputData) // Clean the input array for any non-real number values.
-        //                 displayList(cleanedArray, document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
-        //         }
+        document.querySelector('#vp-item3-2').onkeyup = function(event){ // vp-item3-2 is the input box
+                if(event.key === ","){        
+                        clearDiv(document.querySelector('#vp-item2-2'));    // Clear the visualization area
+                        //visualize the input in the textbox
+                        const visualizeDiv = createElem("div", "vp-item2-2-1", [], "", "visualizeDiv")  // This is dynamically created here,
+                                                                                 // So that previous display is cleared and can start displaying from fresh.
+                        document.querySelector('#vp-item2-2').append(visualizeDiv);
+                        inputData = this.value.split(",")
+                        cleanedArray = cleanArray(inputData) // Clean the input array for any non-real number values.
+                        displayList(cleanedArray, document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
+                }
                          
-        // }
+        }
         clearDiv(document.querySelector('#vp-item2-2'));    // Clear the visualization area
                         //visualize the input in the textbox
         const visualizeDiv = createElem("div", "vp-item2-2-1", [], "", "visualizeDiv")  // This is dynamically created here,
                                                                                  // So that previous display i
         document.querySelector('#vp-item2-2').append(visualizeDiv);
-        displayList([2,2,3,2,6,4,1,7,5], document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
+        displayList([], document.querySelector('#vp-item2-2-1'));  // passing an array of data points instead of string
 
         
         // Visualize on clicking start
@@ -189,7 +189,7 @@ class SelectionSort extends Algorithm{
                         // Set minimum value inside Min box
                         movingBox.innerHTML = currentMinBar.innerHTML
                         moveUnder(movingBox, currentMinBar)
-                        await delay(1000);
+                        await delay(20);
 
                         let nextBarIndex = currentStartIndex + 1;
                         let nextBar = document.querySelector("#vp-item2-2-1").childNodes[nextBarIndex]
@@ -197,7 +197,7 @@ class SelectionSort extends Algorithm{
         
                                 // Move under next bar
                                 moveUnder(movingBox, nextBar)
-                                await delay(100);
+                                await delay(20);
 
                                 if(parseInt(nextBar.innerHTML) < parseInt(currentMinBar.innerHTML)){
                                         //Remove Min color from previous Min bar
@@ -406,7 +406,7 @@ function delay(delayTime){
                 setTimeout(()=>{
                         resolve("Done changing Order")
                         
-                }, 1000)
+                }, 10)
           })
   }
 
