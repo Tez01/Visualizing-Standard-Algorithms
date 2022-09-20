@@ -1,0 +1,109 @@
+:root{
+        --visualize-grid-template-row: 9fr 2fr;
+}
+#visualize-page{
+        background-color: black;
+        padding: 1%;
+        height: 100vh;
+        width: 100vw;
+        grid-template-rows: auto 8fr 1.5fr 0.5fr;
+        grid-template-columns: 1;
+        grid-gap: 1%;
+}
+
+
+/* ********************************************* Start visualize button ******************************* */
+#vp-item1{
+        color: white;
+        justify-self: center;
+
+}
+
+#vp-item2{
+        display: grid;
+        grid-template-columns: 2fr 7fr 2fr;
+}
+#vp-item2-2{
+        display:grid;
+        grid-template-rows: 10fr 0fr;
+        background-color: #7F7F7F;
+        animation-name: shrinkBox;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        animation-play-state: paused;
+        
+
+}
+#vp-item2-2-1{
+        display: flex;
+        justify-content: center;
+
+}
+
+#vp-item2-2-1 > .swapTransition{
+        transition: transform ease-in 0.3s;
+}
+
+#vp-item2-2-2{
+        display: grid;
+        grid-row: auto;
+        background-color: rgb(40, 38, 38);
+        align-content: center;
+
+}
+
+#vp-item3{
+        display: grid;
+        grid-template-columns: 1fr 10fr auto;
+}
+
+#vp-item3-1{
+        justify-self: center;
+        align-self: center;
+}
+#vp-item4{
+        background-color: rgb(28, 141, 141);
+        grid-column-start: 2;
+        grid-column-end: -1;
+        
+}
+
+/* *********************************************Generic ******************************* */
+.rectangle{
+        
+        width: 10%;
+        background-color: #0095B6;
+        border: 2px solid black;
+}
+
+@keyframes shrinkBox {
+        100%{
+                grid-template-rows: var(--visualize-grid-template-row, 9fr 2fr);
+        }
+        
+}
+
+@keyframes elementHalfAppear{
+        0%{
+                opacity: 0;
+        }
+
+        100%{
+                opacity: .8;
+        }
+}
+
+.redBackground{
+        background-color: red;
+        opacity: 80%;
+}
+.greenBackground{
+        background-color: green;
+        opacity: 50%;
+}
+
+.halfAppear{
+        animation: elementHalfAppear 1s forwards;
+        animation-iteration-count: 1;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
+}

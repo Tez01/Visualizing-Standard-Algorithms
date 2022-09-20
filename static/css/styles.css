@@ -1,4 +1,10 @@
 /*************************************************Generic **************************************************************/
+.root-container{
+        
+        background-color: black;
+}
+
+
 .button{
         font-size: 1.5em;
         color: white;
@@ -12,7 +18,7 @@
         transition-timing-function:cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .button:hover {
-        background-color: #52B2BF;
+        background-color: #52B2BF!important;
         /* box-shadow: rgba(247, 246, 246, 0.5) 0 3px 8px; */
         
 }
@@ -26,6 +32,17 @@
         margin-right: 10%;
         
 
+}
+
+.slowAppear{
+        animation: elementAppear 1s forwards;
+        animation-iteration-count: 1;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
+}
+
+.slowDisappear{
+        animation: elementDisappear 500ms forwards;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
 }
 
 /**************************************************Keyframes ***********************************************************/
@@ -58,6 +75,13 @@
         }
 }
 
+@keyframes elementDisappear{
+        
+
+        100%{
+                display: none;
+        }
+}
 
 @keyframes moveToCenter{
         
@@ -69,22 +93,15 @@
 /*************************************************Search Button*******************************************************/
 
 
-.root-container{
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        background-color: black;
-}
 
-#search-button{
-        animation-name: moveToLeft;
+
+
+#sb1{
+        background-color: #007500;
+        animation-name: moveToLeft; 
         animation-duration: 2000ms;
         animation-fill-mode: forwards;
-        background-color: #007500;
         margin-right: 10%;
-        
 }
 
 
@@ -104,7 +121,7 @@
         background-color:#f44336;
         animation: moveToCenter 1s;
         animation-fill-mode: forwards;
-        animation-play-state: paused;
+        animation-play-state: paused; /* Turn on in javascript code  when required*/
         
 
 }
@@ -113,7 +130,7 @@
 
 .slowAppear{
         animation: elementAppear 1s forwards;
-        animation-play-state: paused;
+        animation-play-state: paused;  /* Turn on in javascript code  when required*/
 }
 
 /* ****************************************Search type button************************************************************* */
@@ -130,3 +147,18 @@
 .hash-type-button{
         background-color: #349769;
 }
+
+
+
+
+/* ********************************************* Search Page ******************************* */
+#search-page{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: transparent;
+}
+
+
