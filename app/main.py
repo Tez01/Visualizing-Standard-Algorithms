@@ -4,15 +4,16 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 
-app =   FastAPI()
+app = FastAPI()
 
 # Used to handle static files. Mounts an independent application to handle static files
-app.mount("/static", StaticFiles(directory = "static"), name = "static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Include created routes in the router folder to the main application.
-app.include_router(home.router) 
+app.include_router(home.router)
 
-@app.get("/{anyUrl}")
-async def goToHome(anyUrl, request: Request):
-        # Redirect to home
-        return RedirectResponse("/home")
+
+@app.get("/")
+async def goToHome(request: Request):
+    # Redirect to home
+    return RedirectResponse("/home")
